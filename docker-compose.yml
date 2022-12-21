@@ -1,0 +1,26 @@
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8000:80
+    volumes:
+      - ./www:/var/www/html
+      
+  mysql:
+    image: mysql:8.0
+    restart: always
+    ports:
+      - 3307:3306
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+      - docker-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: docker
+      MYSQL_USER: docker
+      MYSQL_ROOT_PASSWORD: docker
+      MYSQL_PASSWORD: docker
+
+volumes:
+  docker-mysql-data:
